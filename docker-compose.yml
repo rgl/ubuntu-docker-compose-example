@@ -1,0 +1,21 @@
+# see https://docs.docker.com/compose/overview/
+# see https://docs.docker.com/compose/compose-file/
+version: '3.7'
+services:
+  hello:
+    build: hello
+    ports:
+      # NB since this port is declared as a single integer, docker-compose will
+      #    automatically allocate a port in the host. to later known the
+      #    allocated port use docker-compose port hello 8888
+      - "8888"
+    depends_on:
+      - etcd
+    restart: on-failure
+  etcd:
+    image: gcr.io/etcd-development/etcd:v3.3.13
+    command:
+      - /usr/local/bin/etcd
+      - --advertise-client-urls=http://0.0.0.0:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+    restart: on-failure
