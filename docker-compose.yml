@@ -1,13 +1,13 @@
+# see https://github.com/compose-spec/compose-spec
 # see https://docs.docker.com/compose/overview/
 # see https://docs.docker.com/compose/compose-file/
-version: '3.7'
 services:
   hello:
     build: hello
     ports:
-      # NB since this port is declared as a single integer, docker-compose will
+      # NB since this port is declared as a single integer, docker compose will
       #    automatically allocate a port in the host. to later known the
-      #    allocated port use docker-compose port hello 8888
+      #    allocated port use docker compose port hello 8888
       - "8888"
     depends_on:
       - etcd
@@ -16,7 +16,7 @@ services:
       # NB you can see these container labels with docker inspect.
       com.example: example
   etcd:
-    image: gcr.io/etcd-development/etcd:v3.3.13
+    image: gcr.io/etcd-development/etcd:v3.5.11
     command:
       - /usr/local/bin/etcd
       - --advertise-client-urls=http://0.0.0.0:2379
