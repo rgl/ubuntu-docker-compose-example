@@ -1,16 +1,6 @@
-# About
+#!/bin/bash
+set -euxo pipefail
 
-[![Build](https://github.com/rgl/ubuntu-docker-compose-example/actions/workflows/build.yml/badge.svg)](https://github.com/rgl/ubuntu-docker-compose-example/actions/workflows/build.yml)
-
-This is an example on how to start a docker-compose environment in a (remote) docker host.
-
-**NB** This is similar to [rgl/windows-docker-compose-example](https://github.com/rgl/windows-docker-compose-example).
-
-# Usage
-
-Execute the following commands:
-
-```bash
 # if required, set the DOCKER_HOST environment variable.
 # this make the docker client use this dockerd.
 # NB you must start dockerd with -H tcp://0.0.0.0:2375
@@ -54,7 +44,8 @@ else:
 print(hello_endpoint)
 EOF
 )"
-# invoke the hello endpoint.
+# invoke the hello endpoint twice.
+wget -qO- $hello_endpoint
 wget -qO- $hello_endpoint
 
 # show logs.
@@ -62,4 +53,3 @@ docker compose logs
 
 # destroy the environment.
 docker compose down
-```
