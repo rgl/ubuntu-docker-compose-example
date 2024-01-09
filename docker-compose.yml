@@ -16,6 +16,9 @@ services:
       # NB you can see these container labels with docker inspect.
       com.example: example
   etcd:
+    # see https://github.com/etcd-io/etcd/releases
+    # see https://github.com/etcd-io/etcd/blob/v3.5.11/Dockerfile-release.amd64
+    # see https://gcr.io/etcd-development/etcd
     image: gcr.io/etcd-development/etcd:v3.5.11
     command:
       - /usr/local/bin/etcd
