@@ -16,6 +16,7 @@ services:
       # NB you can see these container labels with docker inspect.
       com.example: example
   etcd:
+    # see https://etcd.io/docs/v3.5/op-guide/container/#docker
     # see https://github.com/etcd-io/etcd/releases
     # see https://github.com/etcd-io/etcd/blob/v3.5.11/Dockerfile-release.amd64
     # see https://gcr.io/etcd-development/etcd
@@ -24,7 +25,12 @@ services:
       - /usr/local/bin/etcd
       - --advertise-client-urls=http://0.0.0.0:2379
       - --listen-client-urls=http://0.0.0.0:2379
+      - --data-dir=/etcd-data
     restart: on-failure
     labels:
       # NB you can see these container labels with docker inspect.
       com.example: example
+    volumes:
+      - etcd-data:/etcd-data
+volumes:
+  etcd-data:
