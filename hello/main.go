@@ -75,9 +75,8 @@ func main() {
 
 		fmt.Fprintf(
 			w,
-			`Hello World!
+			`Hello World #%d!
 
-etcd hit-counter: %d
 HTTP Request: %s %s%s
 Server IP address: %s
 Client IP address: %s
