@@ -54,6 +54,7 @@ else:
 print(hello_endpoint)
 EOF
 )"
+
 # invoke the hello endpoint.
 wget -qO- $hello_endpoint
 
