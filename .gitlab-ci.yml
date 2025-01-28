@@ -1,0 +1,35 @@
+# NB this is used as an example by https://github.com/rgl/gitlab-vagrant and
+#    https://github.com/rgl/gitlab-ci-vagrant
+
+build-ubuntu:
+  tags:
+    - ubuntu
+    - shell
+  script:
+    # configure the compose project name.
+    # NB the build-ubuntu and build-windows both target the same machine, so
+    #    the compose project name must be different to prevent conflicts
+    #    between them.
+    - export COMPOSE_PROJECT_NAME="$CI_PROJECT_PATH_SLUG-$CI_JOB_NAME_SLUG"
+    # run the test.
+    - ./test.sh
+
+build-windows:
+  tags:
+    - windows
+    - pwsh
+  script:
+    # configure the docker client to use the remote ubuntu docker host.
+    # see https://docs.docker.com/engine/security/protect-access
+    # see ../gitlab-ci-vagrant/windows/configure-gitlab-runner-home.ps1
+    # NB the client certificate is already configured in the runner. see the above file.
+    - |
+      $env:DOCKER_TLS_VERIFY = '1'
+      $env:DOCKER_HOST = "tcp://ubuntu.$($env:CI_SERVER_URL -replace 'https://',''):2376"
+    # configure the compose project name.
+    # NB the build-windows and build-ubuntu both target the same machine, so
+    #    the compose project name must be different to prevent conflicts
+    #    between them.
+    - $env:COMPOSE_PROJECT_NAME = "$env:CI_PROJECT_PATH_SLUG-$env:CI_JOB_NAME_SLUG"
+    # run the test.
+    - ./test.ps1

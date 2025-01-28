@@ -52,4 +52,4 @@ wget -qO- $hello_endpoint
 docker compose logs
 
 # destroy the environment.
-docker compose down
+docker compose down --volumes
