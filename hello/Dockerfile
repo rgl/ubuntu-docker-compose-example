@@ -1,4 +1,4 @@
-FROM golang:1.23.5-bookworm as builder
+FROM golang:1.24.5-bookworm AS builder
 WORKDIR /app
 COPY go.* ./
 RUN go mod download
